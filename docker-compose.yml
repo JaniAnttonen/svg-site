@@ -1,0 +1,23 @@
+version: '2'
+services:
+  base:
+    image: node:latest
+    volumes:
+     - .:/home/node/app
+    working_dir: /home/node/app
+
+  dev:
+    extends: base
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: 'dev'
+    command: yarn run dev
+
+  build:
+    extends: base
+    ports:
+      - "80:3000"
+    environment:
+      NODE_ENV: 'prod'
+    command: bash -c "yarn run build && yarn run start"
