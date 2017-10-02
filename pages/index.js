@@ -1,9 +1,6 @@
 import React from 'react';
-import Link from 'next/link';
 import css from 'next/css';
-import TextToSVG from 'text-to-svg';
-
-const textToSVG = TextToSVG.loadSync();
+import SVGText from '../components/svgtext';
 
 const style = css({
   height: '100vh',
@@ -15,12 +12,9 @@ const style = css({
   },
 });
  
-const attributes = {fill: 'red', stroke: 'black'};
-const options = {x: 0, y: 0, fontSize: 72, anchor: 'top', attributes: attributes};
 
 export default () => (
     <div className={style}>
-        Home:<Link href="/about">About</Link>
-        {textToSVG.getSVG('hello', options)}
+        <SVGText text="Ebin!"/>
     </div>
 );
