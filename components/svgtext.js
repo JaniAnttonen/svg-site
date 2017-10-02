@@ -12,8 +12,8 @@ export default class SVGText extends React.Component {
 
     componentWillMount() {
         const textToSVG = TextToSVG.loadSync();
-        const attributes = this.props.attributes || {fill: 'red', stroke: 'black'};
-        const options = this.props.options || {x: 0, y: 0, fontSize: 72, anchor: 'top', attributes: attributes};
+        const attributes = this.props.attributes || {fill: '#ebebeb'};
+        const options = this.props.options || {x: 0, y: 0, fontSize: 17, anchor: 'top', attributes: attributes};
         this.setState({
             element: textToSVG.getSVG(this.props.text || 'hello world!', options)
         });
