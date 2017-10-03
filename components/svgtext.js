@@ -31,8 +31,12 @@ export default class SVGText extends React.Component {
       anchor: 'top',
     };
     const rows = splitText(this.props.text);
-    const maxWidth = rows.reduce((a, b) => Math.max(textToSVG.getMetrics(a, options).width, textToSVG.getMetrics(b, options).width));
-    const totalHeight = rows.map((text) => textToSVG.getMetrics(text, options).height).reduce((a, b) => a + b + options.fontSize, 0);
+    const maxWidth = rows.reduce((a, b) =>
+      Math.max(textToSVG.getMetrics(a, options).width, textToSVG.getMetrics(b, options).width)
+    );
+    const totalHeight = rows
+      .map(text => textToSVG.getMetrics(text, options).height)
+      .reduce((a, b) => a + b + options.fontSize, 0);
     this.state = {
       paths: rows.map((row, index) => {
         options.y = index > 0 ? options.y + options.fontSize * 2 : options.y;
@@ -50,12 +54,11 @@ export default class SVGText extends React.Component {
         <svg
           ref={elem => (this.svg = elem)}
           width={this.state.svgWidth}
-          height={this.state.svgHeight} 
+          height={this.state.svgHeight}
         >
-            {this.state.paths.map((path, index) => {
-                this.pathElems.push(`row${index}`);
-                return <path d={path} fill={this.attributes.fill} id={`row${index}`} key={`row${index}`} />
-            })}
+          {this.state.paths.map((path, index) => (
+            <path d={path} fill={this.attributes.fill} id={`row${index}`} key={`row${index}`} />
+          ))}
         </svg>
       )
     );
