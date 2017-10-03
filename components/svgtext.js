@@ -13,7 +13,7 @@ export default class SVGText extends React.Component {
     componentWillMount() {
         const textToSVG = TextToSVG.loadSync();
         const attributes = this.props.attributes || {fill: '#c0bdf0'};
-        const options = this.props.options || {x: 0, y: 0, fontSize: 17, anchor: 'top', attributes: attributes};
+        const options = this.props.options || {x: 0, y: 0, fontSize: 11, anchor: 'top', attributes: attributes};
         this.setState({
             element: textToSVG.getSVG(this.props.text || 'hello world!', options)
         });
