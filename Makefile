@@ -1,4 +1,4 @@
-.PHONY: dev install bash
+.PHONY: dev build install bash
 dev:
 		docker-compose run --rm --service-ports dev
 build:

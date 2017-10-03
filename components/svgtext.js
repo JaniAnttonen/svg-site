@@ -22,12 +22,12 @@ const splitText = (text, columns) => {
 export default class SVGText extends React.Component {
   constructor(props) {
     super(props);
-    const textToSVG = TextToSVG.loadSync();
+    const textToSVG = TextToSVG.loadSync('fonts/Aadhunik.ttf');
     this.attributes = this.props.attributes || { fill: '#c0bdf0' };
     const options = this.props.options || {
       x: 0,
       y: 0,
-      fontSize: 11,
+      fontSize: 13,
       anchor: 'top',
     };
     const rows = splitText(this.props.text);
