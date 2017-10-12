@@ -1,6 +1,9 @@
 import React from 'react';
 import css from 'next/css';
+import Vivus from 'vivus';
 import SVGText from '../components/svgtext';
+
+//TODO: https://www.goodreads.com/api
 
 const style = css({
   width: 'auto',
@@ -25,6 +28,9 @@ export default () => (
             align-items: center;
           }
         `}</style>
-    <SVGText text={text} />
+    <SVGText
+      text={text}
+      loadCallback={typeof window !== 'undefined' && new Vivus('svgText', { duration: 1000 })}
+    />
   </div>
 );

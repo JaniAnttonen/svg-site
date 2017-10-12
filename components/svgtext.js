@@ -45,7 +45,13 @@ export default class SVGText extends React.Component {
       svgWidth: maxWidth,
       svgHeight: totalHeight,
     };
-    this.pathElems = [];
+  }
+
+  componentDidMount() {
+    console.log(typeof this.props.loadCallback);
+    if (this.props.loadCallback) {
+      this.props.loadCallback();
+    }
   }
 
   render() {
@@ -53,6 +59,7 @@ export default class SVGText extends React.Component {
       this.state.paths && (
         <svg
           ref={elem => (this.svg = elem)}
+          id="svgText"
           width={this.state.svgWidth}
           height={this.state.svgHeight}
         >
