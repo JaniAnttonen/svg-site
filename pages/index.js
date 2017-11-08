@@ -18,7 +18,7 @@ const intro =
 
 class Index extends Component {
   componentDidMount() {
-    // const ebin = new Vivus('svgText', { duration: 1000 });
+    const ebin = new Vivus('svgText', { duration: 1000 });
   }
   render() {
     return (

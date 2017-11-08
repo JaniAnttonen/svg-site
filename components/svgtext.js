@@ -20,8 +20,7 @@ const splitText = (text, columns) => {
 };
 
 export default class SVGText extends React.Component {
-  constructor(props) {
-    super(props);
+  componentWillMount() {
     const textToSVG = TextToSVG.loadSync('fonts/Aadhunik.ttf');
     this.attributes = this.props.attributes || { fill: '#c0bdf0' };
     const options = this.props.options || {
@@ -46,25 +45,22 @@ export default class SVGText extends React.Component {
     const totalHeight = rows
       .map(text => textToSVG.getMetrics(text, options).height)
       .reduce((a, b) => a + b + options.fontSize, 0);
-    this.state = {
+    this.setState({
       paths: rows.map((row, index) => {
         options.y = index > 0 ? options.y + options.fontSize * 2 : options.y;
         return textToSVG.getD(row, options);
       }),
       svgWidth: maxWidth,
       svgHeight: totalHeight,
-    };
+    });
   }
 
   render() {
     return (
-      this.state.paths && (
-        <svg
-          ref={elem => (this.svg = elem)}
-          id="svgText"
-          width={this.state.svgWidth}
-          height={this.state.svgHeight}
-        >
+      this.state.paths &&
+      this.state.svgWidth > 0 &&
+      this.state.svgHeight > 0 && (
+        <svg className="svgText" width={this.state.svgWidth} height={this.state.svgHeight}>
           {this.state.paths.map((path, index) => (
             <path d={path} fill={this.attributes.fill} id={`row${index}`} key={`row${index}`} />
           ))}
