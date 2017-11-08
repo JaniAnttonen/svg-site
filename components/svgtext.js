@@ -10,7 +10,7 @@ const splitText = (text, columns) => {
   for (const char of text) {
     row += char;
     charInRow += 1;
-    if ((charInRow >= charLimit && isWhiteSpace(char)) || text.indexOf(char) === text.length) {
+    if ((charInRow >= charLimit && isWhiteSpace(char)) || row.length === text.length) {
       rows.push(row);
       row = '';
       charInRow = 0;
@@ -31,9 +31,18 @@ export default class SVGText extends React.Component {
       anchor: 'top',
     };
     const rows = splitText(this.props.text);
-    const maxWidth = rows.reduce((a, b) =>
-      Math.max(textToSVG.getMetrics(a, options).width, textToSVG.getMetrics(b, options).width)
-    );
+    const maxWidth =
+      rows.length > 0
+        ? rows.length === 1
+          ? textToSVG.getMetrics(rows[0], options).width ||
+            rows.reduce((a, b) =>
+              Math.max(
+                textToSVG.getMetrics(a, options).width,
+                textToSVG.getMetrics(b, options).width
+              )
+            )
+          : 0
+        : 0;
     const totalHeight = rows
       .map(text => textToSVG.getMetrics(text, options).height)
       .reduce((a, b) => a + b + options.fontSize, 0);
@@ -45,13 +54,6 @@ export default class SVGText extends React.Component {
       svgWidth: maxWidth,
       svgHeight: totalHeight,
     };
-  }
-
-  componentDidMount() {
-    console.log(typeof this.props.loadCallback);
-    if (this.props.loadCallback) {
-      this.props.loadCallback();
-    }
   }
 
   render() {
